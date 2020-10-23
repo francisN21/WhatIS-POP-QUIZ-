@@ -24,7 +24,7 @@ div {
 /* c1 determins the entire column setting */
 .c1{
     margin-top: 45px;
-    margin-left: 20px;
+    margin-left: 20%;
 }
 /* c2 determins the values for the rows and columns  */
 .c2{
@@ -54,6 +54,18 @@ hr { display: block;
 figure{
     margin-top: 15px;
     margin-bottom: 60px;
+}
+/* qstn and btn margin set */
+.qstn{
+    margin-bottom: 10px;
+}
+
+.btn{
+    margin-bottom: 20px;
+
+}
+.lboard{
+    margin: 20px, 20px, 20px, 20px;
 }
 
 .footer {
