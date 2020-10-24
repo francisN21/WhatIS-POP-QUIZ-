@@ -1,56 +1,54 @@
 // Questions ARRAY: creates the container for the questions, choices and correct answer
 let questions = [
     {
-        title: "",
-        choices: [],
-        answer: "",
+        title: "What are JavaScript data types?",
+        choices: ["String","Cord","Cable","Chocolate"],
+        answer: "String",
     },
     {
-        title: "",
-        choices: [],
-        answer: "",
+        title: "Which company developed JavaScript?",
+        choices: ["Netscape","Escape","Broscape","Memeland"],
+        answer: "Netscape",
     },
     {
-        title: "",
-        choices: [],
-        answer: "",
+        title: "Which symbol is used for comments in JavaScript?",
+        choices: ["//","<>","!!","{}"],
+        answer: "//",
     },
     {
-        title: "",
-        choices: [],
-        answer: "",
+        title: "Does JavaScript support automatic type conversion?",
+        choices: ["Yes","No","Maybe","None of the above"],
+        answer: "Yes",
     },
     {
-        title: "",
-        choices: [],
-        answer: "",
+        title: "What is the loop structure in JavaScript?",
+        choices: ["For","Always","Four","Never"],
+        answer: "For",
     }
 ];
 
 // contains the variables for the functions below
-let score = 0;
-let currentQuestion = -1;
-let timeLeft = 0;
-let timer;
-let counter = document.getElementById("#count");
-let questionA = document.getElementById("#questionA");
+var score = 0;
+var currentQuestion = -1;
+var timeLeft = 0;
+var timer;
+
 
 // countdown starts as the user hit the start button
 function start(){
     timeLeft = 100;
-    counter = timeLeft;
+    document.getElementById("count").innerHTML = timeLeft;
 
     timer = setInterval(function(){
         timeLeft--;
-        counter = timeLeft;
+        document.getElementById("count").innerHTML = timeLeft;
         // if statement once the counter falls to 0
         if (timeLeft <=0){
             clearInterval(timer);
-            endgame();
+            endGame();
         }
-        // sets 1.5 seconds delay
-    }, 1500);
-    console.log(timeLeft);
+        // sets 1 seconds delay
+    }, 1000);
     next();
 }
 
@@ -64,7 +62,7 @@ function endGame() {
     <input type="text" id="name" placeholder="First name"> 
     <button onclick="setScore()">Set score!</button>`;
 
-    questionA = questionArea;
+    document.getElementById("questionA").innerHTML = questionArea;
 };
 
 // Setscore and getscore function, saves on the local storage //
@@ -78,10 +76,10 @@ function getScore() {
     <p>` + localStorage.getItem("highscoreName") + `'s highscore is:</p>
     <p>` + localStorage.getItem("highscore") + `</p><br> 
     
-    <button onclick="clearScore()">Clear score!</button><button onclick="resetGame()">Play Again!</button>
+    <button onclick="clearScore()">Clear score!</button><button onclick="resetGame()">Play Again!</button><button onclick="leaderboard()">Leaderboard</button>
     
     `;
-    questionA = questionArea;
+    document.getElementById("questionA").innerHTML = questionArea;
 };
 // Clears the score from the local storage //
 function clearScore() {
@@ -104,9 +102,19 @@ function resetGame() {
     <p>Hit start to play!</p>
     <button id="start" onclick="start()" class="btn btn-outline-primary">Start</button>`;
 
-    questionA = questionArea;
-};
+    document.getElementById("questionA").innerHTML = questionArea;
 
+};
+// time penalty for every wrong answer
+function incorrect() {
+    timeLeft -= 15; 
+    next();
+}
+// bonus time for every correct answer
+function correct() {
+    score += 20;
+    next();
+}
 
 
 
@@ -119,7 +127,7 @@ function next() {
         return;
     }
 
-    var questionArea = "<h2>" + questions[currentQuestion].title + "</h2>"
+    var questionArea = "<p>" + questions[currentQuestion].title + "</p>"
 
     for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++) {
         var buttonCode = "<button onclick=\"[ANS]\">[CHOICE]</button>"; 
@@ -130,6 +138,16 @@ function next() {
             buttonCode = buttonCode.replace("[ANS]", "incorrect()");
         }
         questionArea += buttonCode;
+
     }
-    questionA = questionArea;
+    // question = questionArea;
+    // document.getElementById("#questionA").innerHTML = question;
+    document.getElementById("questionA").innerHTML = questionArea;
+    console.log(typeof(questionArea));
 };
+
+// leaderboard link
+function leaderboard(){
+    window.location= `./highscores.html`;
+}
+
