@@ -60,7 +60,7 @@ function start(){
 function endGame() {
     clearInterval(timer);
 
-    let questionArea = `
+    var questionArea = `
     <h2>Game over!</h2>
     <h3>You're score is'` + score +  ` /100!</h3>
     <h3>You got ` + score / 20 +  ` questions correct!</h3>
@@ -70,3 +70,27 @@ function endGame() {
     questionA = questionArea;
 };
 
+
+// question function //
+function next() {
+    currentQuestion++;
+
+    if (currentQuestion > questions.length - 1) {
+        endGame();
+        return;
+    }
+
+    var questionArea = "<h2>" + questions[currentQuestion].title + "</h2>"
+
+    for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++) {
+        var buttonCode = "<button onclick=\"[ANS]\">[CHOICE]</button>"; 
+        buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);
+        if (questions[currentQuestion].choices[buttonLoop] == questions[currentQuestion].answer) {
+            buttonCode = buttonCode.replace("[ANS]", "correct()");
+        } else {
+            buttonCode = buttonCode.replace("[ANS]", "incorrect()");
+        }
+        questionArea += buttonCode;
+    }
+    questionA = questionArea;
+};
