@@ -55,15 +55,11 @@ figure{
     margin-top: 15px;
     margin-bottom: 60px;
 }
-/* qstn and btn margin set */
-.qstn{
+/* qstn margin set */
+.questionA{
     margin-bottom: 10px;
 }
 
-.btn{
-    margin-bottom: 20px;
-
-}
 .lboard{
     margin: 20px, 20px, 20px, 20px;
 }
