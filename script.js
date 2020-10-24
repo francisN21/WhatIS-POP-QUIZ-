@@ -35,10 +35,7 @@ let timer;
 let counter = document.getElementById("#count");
 let questionA = document.getElementById("#questionA");
 
-
-
 // countdown starts as the user hit the start button
-
 function start(){
     timeLeft = 100;
     counter = timeLeft;
@@ -61,14 +58,56 @@ function endGame() {
     clearInterval(timer);
 
     var questionArea = `
-    <h2>Game over!</h2>
-    <h3>You're score is'` + score +  ` /100!</h3>
-    <h3>You got ` + score / 20 +  ` questions correct!</h3>
+    <h4>Game over!</h4>
+    <p>You're score is'` + score +  ` /100!</p>
+    <p>You got ` + score / 20 +  ` questions correct!</p>
     <input type="text" id="name" placeholder="First name"> 
     <button onclick="setScore()">Set score!</button>`;
 
     questionA = questionArea;
 };
+
+// Setscore and getscore function, saves on the local storage //
+function setScore() {
+    localStorage.setItem("highscore", score);
+    localStorage.setItem("highscoreName",  document.getElementById('name').value);
+    getScore();
+}
+function getScore() {
+    var questionArea = `
+    <p>` + localStorage.getItem("highscoreName") + `'s highscore is:</p>
+    <p>` + localStorage.getItem("highscore") + `</p><br> 
+    
+    <button onclick="clearScore()">Clear score!</button><button onclick="resetGame()">Play Again!</button>
+    
+    `;
+    questionA = questionArea;
+};
+// Clears the score from the local storage //
+function clearScore() {
+    localStorage.setItem("highscore", "");
+    localStorage.setItem("highscoreName",  "");
+    resetGame();
+}
+// we cannot have a game without a reset //
+function resetGame() {
+    clearInterval(timer);
+    score = 0;
+    currentQuestion = -1;
+    timeLeft = 0;
+    timer = null;
+
+    counter = timeLeft;
+
+    var questionArea = `
+    <p>Are you ready to test your knowledge about Javascript?</p>
+    <p>Hit start to play!</p>
+    <button id="start" onclick="start()" class="btn btn-outline-primary">Start</button>`;
+
+    questionA = questionArea;
+};
+
+
 
 
 // question function //
