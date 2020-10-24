@@ -50,7 +50,7 @@ function start(){
         // sets 1 seconds delay
     }, 1000);
     next();
-}
+};
 
 function endGame() {
     clearInterval(timer);
@@ -70,7 +70,8 @@ function setScore() {
     localStorage.setItem("highscore", score);
     localStorage.setItem("highscoreName",  document.getElementById('name').value);
     getScore();
-}
+};
+
 function getScore() {
     var questionArea = `
     <p>` + localStorage.getItem("highscoreName") + `'s highscore is:</p>
@@ -79,14 +80,16 @@ function getScore() {
     <button onclick="clearScore()">Clear score!</button><button onclick="resetGame()">Play Again!</button><button onclick="leaderboard()">Leaderboard</button>
     
     `;
+
     document.getElementById("questionA").innerHTML = questionArea;
 };
 // Clears the score from the local storage //
 function clearScore() {
     localStorage.setItem("highscore", "");
     localStorage.setItem("highscoreName",  "");
+    location.reload();
     resetGame();
-}
+};
 // we cannot have a game without a reset //
 function resetGame() {
     clearInterval(timer);
@@ -100,7 +103,7 @@ function resetGame() {
     var questionArea = `
     <p>Are you ready to test your knowledge about Javascript?</p>
     <p>Hit start to play!</p>
-    <button id="start" onclick="start()" class="btn btn-outline-primary">Start</button>`;
+    <button onclick="start()">Start</button>`;
 
     document.getElementById("questionA").innerHTML = questionArea;
 
@@ -109,12 +112,12 @@ function resetGame() {
 function incorrect() {
     timeLeft -= 15; 
     next();
-}
+};
 // bonus time for every correct answer
 function correct() {
     score += 20;
     next();
-}
+};
 
 
 
@@ -149,5 +152,11 @@ function next() {
 // leaderboard link
 function leaderboard(){
     window.location= `./highscores.html`;
-}
+};
+function home(){
+    window.location= `./index.html`;
+};
 
+
+
+    
